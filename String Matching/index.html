@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G-GENOME | Multi-Sequence Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="screen-overlay"></div>
+
+    <div class="main-interface">
+        
+        <header class="cyber-header">
+            <div class="brand">
+                <i class="fa-solid fa-network-wired fa-pulse"></i> G-GENOME <span class="version">GRID_VIEW</span>
+            </div>
+            <div class="status-indicator">MULTI-THREAD SCANNING: ON</div>
+        </header>
+
+        <main class="grid-layout">
+            
+            <aside class="control-panel">
+                
+                <div class="panel-box search-box">
+                    <h3><i class="fa-solid fa-radar"></i> GLOBAL SCANNER</h3>
+                    <div class="info-text" style="margin-bottom: 10px;">
+                        Masukkan pola DNA untuk memindai seluruh database sekaligus.
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="patternInput" placeholder="POLA: ATG, TATA..." onkeyup="scanDNA()"> 
+                    </div>
+                    
+                    <div class="scan-stats">
+                        <p>Total Sampel: <span id="totalSamples">0</span></p>
+                        <p>Cocok: <span id="totalMatches" class="highlight-text">0</span> Database</p>
+                    </div>
+
+                    <button onclick="resetScan()" class="reset-btn">RESET VIEW</button>
+                </div>
+
+                <div class="panel-box legend-box">
+                    <h3>STATUS</h3>
+                    <ul class="legend-list">
+                        <li><span class="dot active"></span> Match Found</li>
+                        <li><span class="dot inactive"></span> No Match / Hidden</li>
+                    </ul>
+                </div>
+
+            </aside>
+
+            <section class="display-panel">
+                <div class="monitor-header">
+                    <span>DATABASE GRID VIEW</span>
+                    <span class="blinking-cursor">_</span>
+                </div>
+                
+                <div id="resultsGrid" class="cards-container">
+                    </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

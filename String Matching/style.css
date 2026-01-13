@@ -1,0 +1,269 @@
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-color: #050505;
+    --panel-bg: #0a0f0a;
+    --neon-green: #00ff41;
+    --neon-dim: #008F11;
+    --alert-color: #ff0055;
+    --highlight-bg: #00ff41;
+    --highlight-text: #000;
+    --border-color: #1a2f1a;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--neon-green);
+    font-family: var(--font-mono);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* EFEK MONITOR CRT (Garis-garis halus) */
+.screen-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    pointer-events: none; z-index: 999; opacity: 0.6;
+}
+
+/* UI UTAMA */
+.main-interface {
+    width: 95%; max-width: 1200px; height: 90vh;
+    border: 1px solid var(--neon-dim);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+    display: flex; flex-direction: column;
+    background: var(--panel-bg);
+}
+
+/* HEADER */
+.cyber-header {
+    border-bottom: 1px solid var(--neon-dim);
+    padding: 15px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.brand { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; text-shadow: 0 0 10px var(--neon-green); }
+.version { font-size: 0.8rem; opacity: 0.7; }
+.status-indicator { font-size: 0.9rem; border: 1px solid var(--neon-green); padding: 5px 10px; }
+
+/* LAYOUT GRID */
+.grid-layout {
+    display: grid; grid-template-columns: 300px 1fr;
+    height: 100%; overflow: hidden;
+}
+
+/* PANEL KIRI */
+.control-panel {
+    border-right: 1px solid var(--neon-dim);
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 20px;
+}
+
+.panel-box {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    background: rgba(0, 20, 0, 0.5);
+}
+
+.panel-box h3 {
+    font-size: 0.9rem; margin-bottom: 10px; border-bottom: 1px dashed var(--neon-dim); padding-bottom: 5px;
+    color: var(--neon-dim);
+}
+
+/* FORM ELEMENTS */
+select, input {
+    width: 100%; background: black; color: var(--neon-green);
+    border: 1px solid var(--neon-dim); padding: 10px;
+    font-family: var(--font-mono); font-size: 1rem; margin-bottom: 10px;
+    outline: none;
+}
+select:focus, input:focus { border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+
+.scan-btn {
+    width: 100%; background: var(--neon-dim); color: black;
+    border: none; padding: 12px; font-weight: bold; cursor: pointer;
+    font-family: var(--font-mono); transition: 0.2s;
+    letter-spacing: 2px;
+}
+.scan-btn:hover { background: var(--neon-green); box-shadow: 0 0 15px var(--neon-green); }
+
+.info-text, .hint { font-size: 0.75rem; color: #5c8a5c; line-height: 1.4; }
+
+/* PANEL KANAN (DISPLAY) */
+.display-panel {
+    padding: 20px; display: flex; flex-direction: column; overflow: hidden;
+    background: #020502;
+}
+
+.monitor-header { margin-bottom: 10px; font-size: 0.8rem; color: var(--neon-dim); }
+
+.dna-container {
+    flex: 1; border: 1px solid var(--border-color);
+    padding: 20px; overflow-y: auto;
+    background: rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+/* TEKS DNA */
+.dna-text {
+    font-size: 1.1rem; line-height: 1.8;
+    word-break: break-all; /* Agar huruf tidak putus aneh */
+    letter-spacing: 2px; color: #446644; /* Warna redup untuk yang tidak cocok */
+}
+
+/* SCROLLBAR CUSTOM */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--neon-dim); }
+::-webkit-scrollbar-track { background: black; }
+
+/* CLASS UNTUK HASIL MATCHING (Penting!) */
+.highlight {
+    background-color: var(--neon-green);
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--neon-green);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.blinking-cursor { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .grid-layout { grid-template-columns: 1fr; overflow-y: auto;}
+    .control-panel { border-right: none; border-bottom: 1px solid var(--neon-dim); }
+    .main-interface { height: auto; min-height: 100vh; border: none; }
+}
+/* --- GUNAKAN CSS SEBELUMNYA, TAPI TAMBAHKAN/UBAH BAGIAN INI --- */
+
+/* Reset & Variables sama seperti sebelumnya... */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --bg-color: #050505;
+    --panel-bg: #0a0f0a;
+    --neon-green: #00ff41;
+    --neon-dim: #005f11; /* Hijau lebih gelap untuk border biasa */
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--neon-green);
+    font-family: var(--font-mono);
+    height: 100vh;
+    overflow: hidden;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.screen-overlay, .main-interface, .cyber-header, .grid-layout {
+    /* Gunakan style yang sama dengan kode sebelumnya */
+    /* Pastikan .grid-layout display: grid */
+    border: 1px solid var(--neon-dim);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
+    background: var(--panel-bg);
+}
+.main-interface { width: 95%; height: 90vh; display: flex; flex-direction: column; }
+.cyber-header { padding: 15px 20px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--neon-dim); }
+.grid-layout { display: grid; grid-template-columns: 280px 1fr; height: 100%; overflow: hidden; }
+
+/* PANEL KIRI */
+.control-panel { padding: 20px; border-right: 1px solid var(--neon-dim); display: flex; flex-direction: column; gap: 20px; }
+.panel-box { border: 1px solid var(--neon-dim); padding: 15px; background: rgba(0, 20, 0, 0.3); }
+.panel-box h3 { font-size: 0.8rem; color: var(--neon-dim); border-bottom: 1px dashed var(--neon-dim); margin-bottom: 10px; padding-bottom: 5px; }
+
+input { width: 100%; background: black; border: 1px solid var(--neon-dim); color: var(--neon-green); padding: 10px; font-family: inherit; margin-bottom: 15px; }
+input:focus { outline: none; border-color: var(--neon-green); box-shadow: 0 0 10px rgba(0,255,65,0.2); }
+
+.reset-btn { width: 100%; background: transparent; border: 1px solid var(--neon-dim); color: #555; cursor: pointer; padding: 5px; margin-top: 10px; font-family: inherit; transition: 0.3s; }
+.reset-btn:hover { border-color: var(--neon-green); color: var(--neon-green); }
+
+/* PANEL KANAN (DISPLAY GRID) */
+.display-panel { padding: 20px; background: #020502; overflow: hidden; display: flex; flex-direction: column; }
+.monitor-header { margin-bottom: 15px; font-size: 0.8rem; color: #555; }
+
+/* --- GRID CONTAINER --- */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsif grid */
+    gap: 20px;
+    overflow-y: auto;
+    padding-right: 10px;
+    height: 100%;
+}
+
+/* --- CARD STYLE (BLOK DNA) --- */
+.dna-card {
+    border: 1px solid #1a2f1a;
+    background: rgba(0, 10, 0, 0.6);
+    padding: 15px;
+    display: flex; flex-direction: column;
+    height: 250px; /* Tinggi fix agar rapi */
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Header Card */
+.card-header {
+    border-bottom: 1px solid #1a2f1a;
+    padding-bottom: 10px; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: start;
+}
+.organism-name { font-size: 0.9rem; font-weight: bold; color: #4a6; margin-bottom: 3px; display: block; }
+.gene-name { font-size: 0.75rem; color: #555; display: block; }
+
+/* Badge Hitungan */
+.match-badge {
+    font-size: 0.7rem; background: #111; padding: 3px 8px; border: 1px solid #333; color: #555; border-radius: 4px;
+}
+
+/* Area Sequence */
+.card-sequence {
+    font-size: 0.85rem; line-height: 1.6;
+    color: #242; /* Warna gelap default (tidak cocok) */
+    overflow-y: auto; flex: 1;
+    word-break: break-all;
+    border: 1px solid #0d1a0d; padding: 8px;
+    background: black;
+}
+
+/* --- STATES (SAAT ADA MATCH) --- */
+
+/* Kartu yang cocok akan menyala */
+.dna-card.has-match {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    background: rgba(0, 20, 0, 0.8);
+}
+.dna-card.has-match .organism-name { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); }
+.dna-card.has-match .match-badge { background: var(--neon-green); color: black; font-weight: bold; border-color: var(--neon-green); }
+
+/* Kartu yang tidak cocok disembunyikan (Filtering) */
+.dna-card.hidden { display: none; }
+
+/* Highlight Text */
+.highlight {
+    background-color: var(--neon-green); color: black; font-weight: bold;
+    box-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #1a2f1a; }
+
+/* Pastikan ini ada di style.css */
+.cards-container {
+    /* ... kode lain ... */
+    overflow-y: auto; 
+    padding-bottom: 50px; /* Tambahan padding bawah agar kartu terakhir tidak kepotong */
+}
