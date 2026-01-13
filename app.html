@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Scheduler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        
+        <header class="app-header">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <div class="header-text">
+                <h1>Generator Jadwal</h1>
+                <p>Algoritma Backtracking</p>
+            </div>
+        </header>
+
+        <div class="main-content">
+            
+            <div class="left-panel">
+                <div class="input-card">
+                    <h2><i class="fa-solid fa-pen-to-square"></i> Input Mata Kuliah</h2>
+                    
+                    <div class="form-row">
+                        <div class="input-wrap name-field">
+                            <label>Nama Mata Kuliah</label>
+                            <input type="text" id="courseInput" placeholder="Contoh: Algoritma..." onkeypress="handleEnter(event)">
+                        </div>
+                        <div class="input-wrap sks-field">
+                            <label>SKS</label>
+                            <input type="number" id="sksInput" placeholder="1-6" min="1" max="6" onkeypress="handleEnter(event)">
+                        </div>
+                    </div>
+
+                    <button id="addBtn" onclick="addCourse()">
+                        <i class="fa-solid fa-plus-circle"></i> Tambah Matkul
+                    </button>
+                </div>
+
+                <button id="generateBtn" onclick="generateSchedule()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Jadwal
+                </button>
+
+                 <div id="resultSection" class="result-box hidden">
+                    <div id="statusMsg" class="status-message"></div>
+                    <table id="resultTable">
+                        <thead>
+                            <tr>
+                                <th>Slot Waktu</th>
+                                <th>Mata Kuliah</th>
+                                <th>SKS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                
+                <div class="info-card">
+                    <div class="card-head">
+                        <h3>Daftar Matkul</h3>
+                        <span class="pill" id="courseCount">0</span>
+                    </div>
+                    <ul id="courseList" class="scrolling-list">
+                        <li class="empty-placeholder">Belum ada data</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-head">
+                        <h3>Slot Tersedia</h3>
+                        <span class="pill blue" id="slotCount">0</span>
+                    </div>
+                    <ul id="slotList" class="scrolling-list compact">
+                        </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
